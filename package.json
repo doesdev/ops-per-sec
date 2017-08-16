@@ -1,0 +1,41 @@
+{
+  "name": "ops-per-sec",
+  "version": "1.0.0",
+  "description": "Quickly test ops per second of a function",
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "main": "index.js",
+  "bin": {
+    "ops-per-sec": "cli.js"
+  },
+  "engines" : {
+    "node" : ">=8.0.0"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doesdev/ops-per-second.git"
+  },
+  "keywords": [
+    "ops",
+    "operations",
+    "per",
+    "second",
+    "benchmark",
+    "jsperf"
+  ],
+  "author": "Andrew Carpenter (https://github.com/doesdev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doesdev/ops-per-second/issues"
+  },
+  "homepage": "https://github.com/doesdev/ops-per-second#readme",
+  "private": true,
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
+}
