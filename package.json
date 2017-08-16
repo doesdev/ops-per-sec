@@ -34,7 +34,6 @@
     "url": "https://github.com/doesdev/ops-per-second/issues"
   },
   "homepage": "https://github.com/doesdev/ops-per-second#readme",
-  "private": true,
   "devDependencies": {
     "ava": "^0.22.0"
   }
