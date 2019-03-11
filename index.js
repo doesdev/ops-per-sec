@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = async (fn, expect, runForMs = 5000) => {
-  const hasExpect = expect || expect === 0 || expect === false
+  const hasExpect = expect !== undefined
   const ogNow = Date.now()
   const endAt = ogNow + runForMs
   let ops = 0
