@@ -1,11 +1,10 @@
 #! /usr/bin/env node
 'use strict'
 
-// setup
 const opsPerSec = require('./index')
 const vm = require('vm')
 const sandbox = vm.createContext({})
-const fn = () => vm.runInContext(process.argv[2], sandbox)
+const fn = process.argv[2]
 const out = (ops) => console.log(`${ops} ops/sec for: ${process.argv[2]}`)
 const runForMs = process.argv[4] ? parseInt(process.argv[4], 10) : null
 let expect = process.argv[3]
@@ -15,5 +14,9 @@ if (expect) {
   if (`${expect}` === 'false') expect = false
 }
 
-// main
-opsPerSec(fn, expect, runForMs).then(out).catch(console.error)
+const code = `
+const ops = ${opsPerSec}
+ops(${fn}, ${expect || 'undefined'}, ${runForMs || 'undefined'})
+`
+
+vm.runInContext(code, sandbox).then(out).catch(console.error)

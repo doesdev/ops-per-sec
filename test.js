@@ -1,7 +1,7 @@
 'use strict'
 
-import test from 'ava'
-import opsPerSec from './index'
+const { runTests, test } = require('mvt')
+const opsPerSec = require('./index')
 const runFor = 1000
 const ary = ['some', 'text', 'in', 'an', 'array']
 const funcs = [
@@ -33,21 +33,22 @@ const funcs = [
   }
 ]
 
-test.serial(`synchronous functions return ops per second`, async (assert) => {
+runTests('Testing ops-per-sec', async () => {
   for (let f of funcs) {
-    let ops = await opsPerSec(f.fn, true, runFor)
-    console.log(`${f.desc}: ${ops} ops/sec`)
-    assert.truthy(ops)
-  }
-})
+    const ops = await opsPerSec(f.fn, true, runFor)
+    console.log(`sync ${f.desc}: ${ops} ops/sec`)
 
-test.serial(`async functions return ops per second`, async (assert) => {
+    test(`sync ${f.desc}: ops is a number`, !Number.isNaN(+ops))
+  }
+
   for (let f of funcs) {
-    let fn = () => new Promise((resolve, reject) => {
+    const fn = () => new Promise((resolve, reject) => {
       process.nextTick(() => resolve(f.fn()))
     })
-    let ops = await opsPerSec(fn, true, runFor)
+
+    const ops = await opsPerSec(fn, true, runFor)
     console.log(`async ${f.desc}: ${ops} ops/sec`)
-    assert.truthy(ops)
+
+    test(`async ${f.desc}: ops is a number`, !Number.isNaN(+ops))
   }
 })
