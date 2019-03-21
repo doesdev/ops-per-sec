@@ -1,6 +1,6 @@
 {
   "name": "ops-per-sec",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Quickly test ops per second of a function",
   "files": [
     "index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doesdev/ops-per-second.git"
+    "url": "git+https://github.com/doesdev/ops-per-sec.git"
   },
   "keywords": [
     "ops",
@@ -32,9 +32,9 @@
   "author": "Andrew Carpenter (https://github.com/doesdev)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/doesdev/ops-per-second/issues"
+    "url": "https://github.com/doesdev/ops-per-sec/issues"
   },
-  "homepage": "https://github.com/doesdev/ops-per-second#readme",
+  "homepage": "https://github.com/doesdev/ops-per-sec#readme",
   "devDependencies": {
     "mvt": "^2.0.0"
   }
