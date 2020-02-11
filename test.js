@@ -36,7 +36,7 @@ const funcs = [
 
 test('sync: ops is a number', async (assert) => {
   for (const f of funcs) {
-    const ops = await opsPerSec(f.fn, true, runFor)
+    const ops = await opsPerSec(f.fn, runFor, true)
     console.log(`sync ${f.desc}: ${ops} ops/sec`)
 
     assert.is(typeof ops, 'number')
@@ -49,7 +49,7 @@ test('async: ops is a number', async (assert) => {
       process.nextTick(() => resolve(f.fn()))
     })
 
-    const ops = await opsPerSec(fn, true, runFor)
+    const ops = await opsPerSec(fn, runFor, true)
     console.log(`async ${f.desc}: ${ops} ops/sec`)
 
     assert.is(typeof ops, 'number')
@@ -58,9 +58,9 @@ test('async: ops is a number', async (assert) => {
 
 test('ops should be fairly consistent regardless of run time', async (assert) => {
   const f = funcs[0]
-  const opsA = await opsPerSec(f.fn, true, 150)
-  const opsB = await opsPerSec(f.fn, true, 600)
-  const opsC = await opsPerSec(f.fn, true, 2250)
+  const opsA = await opsPerSec(f.fn, 150, true)
+  const opsB = await opsPerSec(f.fn, 600, true)
+  const opsC = await opsPerSec(f.fn, 2250, true)
 
   const pctDiff = (a, b) => 100 * Math.abs((a - b) / ((a + b) / 2))
 

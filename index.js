@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = async (fn, expect, runForMs = 5000) => {
+module.exports = async (fn, runForMs = 5000, expect) => {
   fn = typeof fn() === 'function' ? fn() : fn
   const isAsync = fn() instanceof Promise
   const hasExpect = expect !== undefined

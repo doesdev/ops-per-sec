@@ -26,12 +26,12 @@ $ npm install -g ops-per-sec
 
 ```js
 const opsPerSec = require('ops-per-sec')
-let ops = opsPerSec(() => ['some', 'text', 'in'].includes('text'), true, 3000)
+let ops = opsPerSec(() => ['some', 'text', 'in'].includes('text'), 3000, true)
 console.log(`${ops} ops/sec`)
 ```
 
 ```sh
-$ ops-per-sec "() => ['some', 'text', 'in'].includes('text')" true 3000
+$ ops-per-sec "() => ['some', 'text', 'in'].includes('text')" 3000 true
 ```
 
 ## API
@@ -39,8 +39,8 @@ $ ops-per-sec "() => ['some', 'text', 'in'].includes('text')" true 3000
 #### `opsPerSec(*func, *expect, *runForMs)`
 
 - **func** *[function - required]* function to test ops per second for
-- **expect** *[optional]* value you expect to be returned from function
 - **runForMs** *[integer - optional - default: 5000]* time in ms to let function run
+- **expect** *[optional]* value you expect to be returned from function
 
 ## License
 
