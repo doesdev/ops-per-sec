@@ -1,4 +1,4 @@
-# ops-per-sec [![NPM version](https://badge.fury.io/js/ops-per-sec.svg)](https://npmjs.org/package/ops-per-sec)   [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)   [![Dependency Status](https://dependencyci.com/github/doesdev/ops-per-sec/badge)](https://dependencyci.com/github/doesdev/ops-per-sec)
+# ops-per-sec [![NPM version](https://badge.fury.io/js/ops-per-sec.svg)](https://npmjs.org/package/ops-per-sec)   [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)   
 
 > Quickly test ops per second of a function
 

@@ -1,47 +1,50 @@
 'use strict'
 
-const { runTests, test } = require('mvt')
+const test = require('mvt')
 const opsPerSec = require('./index')
 const runFor = 1000
 const ary = ['some', 'text', 'in', 'an', 'array']
+
 const funcs = [
   {
-    desc: `ary.indexOf !== -1`,
+    desc: 'ary.indexOf !== -1',
     fn: () => ary.indexOf('text') !== -1 && ary.indexOf('in') !== -1
   },
   {
-    desc: `~ary.indexOf`,
+    desc: '~ary.indexOf',
     fn: () => !!(~ary.indexOf('text') && ~ary.indexOf('in'))
   },
   {
-    desc: `ary.includes`,
+    desc: 'ary.includes',
     fn: () => ary.includes('text') && ary.includes('in')
   },
   {
-    desc: `as object`,
+    desc: 'as object',
     fn: () => {
-      let obj = {}
+      const obj = {}
       ary.forEach((e) => { obj[e] = true })
       return obj.text && obj.in
     }
   },
   {
-    desc: `as string`,
+    desc: 'as string',
     fn: () => {
-      return !!`'${ary.join(`','`)}'`.match(/('text'|'in').+('text'|'in')/)
+      return !!`'${ary.join('\',\'')}'`.match(/('text'|'in').+('text'|'in')/)
     }
   }
 ]
 
-runTests('Testing ops-per-sec', async () => {
-  for (let f of funcs) {
+test('sync: ops is a number', async (assert) => {
+  for (const f of funcs) {
     const ops = await opsPerSec(f.fn, true, runFor)
     console.log(`sync ${f.desc}: ${ops} ops/sec`)
 
-    test(`sync ${f.desc}: ops is a number`, !Number.isNaN(+ops))
+    assert.is(typeof ops, 'number')
   }
+})
 
-  for (let f of funcs) {
+test('async: ops is a number', async (assert) => {
+  for (const f of funcs) {
     const fn = () => new Promise((resolve, reject) => {
       process.nextTick(() => resolve(f.fn()))
     })
@@ -49,6 +52,19 @@ runTests('Testing ops-per-sec', async () => {
     const ops = await opsPerSec(fn, true, runFor)
     console.log(`async ${f.desc}: ${ops} ops/sec`)
 
-    test(`async ${f.desc}: ops is a number`, !Number.isNaN(+ops))
+    assert.is(typeof ops, 'number')
   }
+})
+
+test('ops should be fairly consistent regardless of run time', async (assert) => {
+  const f = funcs[0]
+  const opsA = await opsPerSec(f.fn, true, 150)
+  const opsB = await opsPerSec(f.fn, true, 600)
+  const opsC = await opsPerSec(f.fn, true, 2250)
+
+  const pctDiff = (a, b) => 100 * Math.abs((a - b) / ((a + b) / 2))
+
+  assert.lessThan(pctDiff(opsA, opsB), 10)
+  assert.lessThan(pctDiff(opsB, opsC), 10)
+  assert.lessThan(pctDiff(opsC, opsA), 10)
 })

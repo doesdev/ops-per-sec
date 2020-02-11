@@ -1,6 +1,6 @@
 {
   "name": "ops-per-sec",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Quickly test ops per second of a function",
   "files": [
     "index.js",
@@ -36,6 +36,6 @@
   },
   "homepage": "https://github.com/doesdev/ops-per-sec#readme",
   "devDependencies": {
-    "mvt": "^2.0.0"
+    "mvt": "^4.1.0"
   }
 }
